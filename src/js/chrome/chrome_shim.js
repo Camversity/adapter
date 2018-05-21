@@ -594,7 +594,13 @@ module.exports = {
               newIceServers.push(pcConfig.iceServers[i]);
             }
           }
-          pcConfig.iceServers = newIceServers;
+
+          try {
+            pcConfig.iceServers = newIceServers;
+          } catch(e) {
+            console.log('User might have Adblock Plus');
+            console.error(e);
+          }
         }
         return new OrigPeerConnection(pcConfig, pcConstraints);
       };
